@@ -60,7 +60,7 @@ def find_solution(df_in: pd.DataFrame,
   unsolved_ids = set(df.set_index(sweep_vars).index) - set(solved.index)
   unsolved = df.groupby(sweep_vars)['episode'].max()[list(unsolved_ids)]
 
-  plt_df = solved.append(unsolved).to_frame()
+  plt_df = pd.concat([solved,unsolved]).to_frame()
   plt_df.rename(columns={0: 'episode'}, inplace=True)
   plt_df.loc[solved.index, 'solved'] = True
   plt_df.loc[unsolved.index, 'solved'] = False
